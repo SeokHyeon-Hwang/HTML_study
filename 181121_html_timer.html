@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<!-- -->
+<head>
+	<title>Timers</title>
+	
+	<style>
+	#number{
+	background-color:lightblue;
+	color:black;
+	padding:40px;
+	font-size:400%;
+	width:60%
+	}
+	</style>
+	
+	<script>
+	var count = 0;
+	function updateCount() {
+		// 시간을 1초씩 더한다.
+		count = count + 1;
+		// id가 number인 객체를 가져와서 거기에 innerHTML=count를 해준다.
+		document.getElementById('number').innerHTML = count;
+		// 1초 후에 업데이트 시킨다. (setTimeout)
+		setTimeout( updateCount ,1000)
+	}
+	alert('실행됨');
+	</script>
+	
+</head>
+
+<body>
+	<div id='number'>
+	10000
+	</div>
+	<script>
+	updateCount()
+	</script>
+</body>
+
+</html>
