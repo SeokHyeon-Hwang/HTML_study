@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<!-- -->
+<head>
+	<title>Game</title>
+	
+	<style>
+	#board{
+		border:3px solid blue;
+		width:600px;
+		height:450px;
+		background-image: url("C:/Users/ktm/Downloads/GameBackground.jpg");
+	}
+	
+	.character {
+		border:1px solid blue;
+		width:120px;
+		height:120px;
+		float:left;
+		background-image: url("C:/Users/ktm/Downloads/Guest.jpg");
+		padding:10px;
+		margin:10px;
+	}
+	.thief{
+		background: url('C:/Users/ktm/Downloads/thief.jpg');
+		background-size:cover;
+	}
+	.hidden{
+		display: none;
+	}
+	.visible{
+		display:block;
+	}
+	</style>
+	
+	<script>
+
+	alert('실행됨');
+	</script>
+	
+</head>
+
+<body>
+	<input type='button' value='Play' onclick='startGame()'/>
+	<input type='text' id='text01' value='0' name='lname' />
+	<input type='button' value='button2' onclick=''/>
+	<input type='button' value='button3' onclick=''/>
+	<div id='board'>
+	
+	<div class='character'>1</div>
+	<div class='character'>2</div>
+	<div class='character'>3</div>
+	<div class='character'>4</div>
+	<div class='character'>5</div>
+	<div class='character'>6</div>
+	
+	
+	</div>
+	<script>
+		function startGame(){
+			gameLoop();
+		}
+		
+		var loops = 0;
+		var peopleVisible = false; // 화면 나타나고 안나타나고
+		var gameScore = 0; // 정확히 맞췄을 때 1점씩 증가
+		
+		function gameLoop(){
+			peopleVisible = !peopleVisible;
+			createCharacters(); // : 게임의 메인 동작
+			loops++; //loops=loops+1, loops-- : loops-1
+			
+			if (loops < 12) {
+				setTimeout(gameLoop, peopleVisible ? 1000: 1500);
+			}
+			else {
+				alert('You scored : '  + gameScore);
+				loops=0;
+				gameScore=0;
+			}
+			
+		}
+		
+		function createCharacters(){
+			var board = document.getElementById('board');
+			var textVal = document.getElementById('text01');
+			var classToSet = peopleVisible ? 'character visible' : 'charcter hidden';
+			// for(시작값;조건식;증가값){}
+			for (var index=0;index<6; index++){
+				// 실행문
+				board.children[index].className = classToSet; // 요소의 class이름 설정
+				board.children[index].innerHTML = ''; //6개의 사진 부분을 '' 초기화
+				board.children[index].onclick = function() { 
+					gameScore += -2;
+					document.getElementById('text01').value=gameScore;}
+				
+			}
+			
+			//도둑이 보이는 위치를 랜덤하게
+			var randomNumber =Math.floor(Math.random()*6)+1;
+
+			board.children[randomNumber-1].innerHTML = '';
+			board.children[randomNumber-1].onclick = function() {
+				gameScore++;
+			}
+			document.getElementById('text01').value = gameScore;
+			board.children[randomNumber-1].className = classToSet + " thief";
+		}
+		
+		
+	</script>
+</body>
+
+</html>
